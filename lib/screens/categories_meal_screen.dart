@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class CategoriesMealScreen extends StatelessWidget {
   static const routeNamed = '/categories_meal';
+
+  const CategoriesMealScreen({Key? key}) : super(key: key);
   // final String categoryId;
   // final String categoryTitle;
 
@@ -11,6 +13,7 @@ class CategoriesMealScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final routeArguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    // ignore: unused_local_variable
     final categoryId = routeArguments['id'];
     final categoryTitle = routeArguments['title'];
 

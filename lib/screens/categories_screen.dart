@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../assets/categories_list_dummy_data.dart';
+import '../assets/dummy_data.dart';
 import '../widgets/category_item.dart';
 
 // ignore: use_key_in_widget_constructors
