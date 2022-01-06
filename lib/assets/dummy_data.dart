@@ -56,8 +56,8 @@ const DUMMY_CATEGORIES = const [
     color: Colors.brown,
   ),
 ];
- // ignore: constant_identifier_names
- const DUMMY_MEALS = [
+// ignore: constant_identifier_names
+const DUMMY_MEALS = [
   Meal(
     id: 'm1',
     categories: [
