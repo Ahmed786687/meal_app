@@ -1,6 +1,8 @@
+// ignore_for_file: constant_identifier_names
+
 enum Complexity {
   Simple,
-  Chanllenging,
+  Challenging,
   Hard,
 }
 
@@ -20,12 +22,14 @@ class Meal {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
-  final bool isGultenFree;
+  final bool isGlutenFree;
   final bool isLactoseFree;
   final bool isVegan;
   final bool isVegetarian;
 
-  Meal({
+ 
+
+  const Meal({
     required this.id,
     required this.categories,
     required this.title,
@@ -35,7 +39,7 @@ class Meal {
     required this.duration,
     required this.complexity,
     required this.affordability,
-    required this.isGultenFree,
+    required this.isGlutenFree,
     required this.isLactoseFree,
     required this.isVegan,
     required this.isVegetarian,
