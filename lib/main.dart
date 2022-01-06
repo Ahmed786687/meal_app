@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:meal_app/screens/categories_screen.dart';
+
+void main(List<String> args) {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -8,30 +13,27 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "DeliMeal",
       theme: ThemeData(
-        primaryColor: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("DeliMeals"),
-      ),
-      body: const Center(
-        child: Text("Navigations Time"),
-      ),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Colors.teal.shade900,
+            secondary: Colors.amber,
+          ),
+          canvasColor: const Color.fromRGBO(255, 234, 250, 1),
+          fontFamily: 'Raleway',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                bodyText1: TextStyle(
+                  color: Colors.grey.shade900,
+                ),
+                bodyText2: TextStyle(
+                  color: Colors.grey.shade900,
+                ),
+                subtitle1: const TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'RobotoCondensed',
+                  fontWeight: FontWeight.bold,
+                  
+                ),
+              )),
+      home: CategoriesScreen(),
     );
   }
 }
