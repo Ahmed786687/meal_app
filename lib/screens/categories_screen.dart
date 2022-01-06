@@ -10,6 +10,7 @@ class CategoriesScreen extends StatelessWidget {
     children: DUMMY_CATEGORIES
         .map(
           (categoryItemData) => CategoryItem(
+            categoryItemData.id,
             categoryItemData.title,
             categoryItemData.color,
           ),
@@ -25,7 +26,6 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         title: const Text("DeliMeals"),
       ),
