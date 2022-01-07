@@ -1,14 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:meal_app/screens/meal_detail_screen.dart';
+
+import './assets/dummy_data.dart';
+import './models/meal.dart';
+import './screens/filter_screen.dart';
+
+import './screens/meal_detail_screen.dart';
 import '../screens/categories_meal_screen.dart';
 import '../screens/categories_screen.dart';
+import './screens/tabs_screen.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map<String, bool> _filters = {
+    'gluten': false,
+    'vegan': false,
+    'vegetarian': false,
+    'lactose': false,
+  };
+
+  List<Meal> _availableMeals = DUMMY_MEALS;
+
+  void _setFilters(Map<String, bool> filterData) {
+    setState(() {
+      _filters = filterData;
+      _availableMeals = DUMMY_MEALS.where((meal) {
+        if (_filters['gluten'] as bool && !meal.isGlutenFree) {
+          return false;
+        }
+        if (_filters['vegan'] as bool && !meal.isVegan) {
+          return false;
+        }
+        if (_filters['vegetarian'] as bool && !meal.isVegetarian) {
+          return false;
+        }
+        if (_filters['lactose'] as bool && !meal.isLactoseFree) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +58,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.teal.shade900,
+          primary: Colors.teal,
           secondary: Colors.tealAccent.shade100,
         ),
         canvasColor: const Color.fromRGBO(255, 254, 250, 1),
@@ -42,9 +83,12 @@ class MyApp extends StatelessWidget {
       // home: CategoriesScreen(),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => CategoriesScreen(),
-        CategoriesMealScreen.routeNamed: (ctx) => const CategoriesMealScreen(),
+        // '/': (ctx) => CategoriesScreen(),
+        '/': (ctx) => const TabsScreen(),
+        CategoriesMealScreen.routeNamed: (ctx) =>
+            CategoriesMealScreen(_availableMeals),
         MealDetialScreen.routeNamed: (ctx) => const MealDetialScreen(),
+        FilterScreen.routeNamed: (ctx) => FilterScreen(_filters, _setFilters)
       },
       // onGenerateRoute: (settings){
       //   print(settings.arguments);

@@ -97,9 +97,17 @@ class MealDetialScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
-        ));
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
+            child: const Icon(
+              Icons.delete,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop(mealId);
+            }));
   }
 }

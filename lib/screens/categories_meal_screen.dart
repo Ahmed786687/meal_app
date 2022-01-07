@@ -1,43 +1,71 @@
 import 'package:flutter/material.dart';
 
-import '../assets/dummy_data.dart';
+import '../models/meal.dart';
 import '../widgets/meal_item.dart';
 
-class CategoriesMealScreen extends StatelessWidget {
+class CategoriesMealScreen extends StatefulWidget {
   static const routeNamed = '/categories-meal';
 
-  const CategoriesMealScreen({Key? key}) : super(key: key);
-  // final String categoryId;
-  // final String categoryTitle;
+  final List<Meal> availableMeals;
+  // ignore: use_key_in_widget_constructors
+  const CategoriesMealScreen(this.availableMeals);
+  // const CategoriesMealScreen({Key? key}) : super(key: key);
 
-  // const CategoriesMealScreen(this.categoryId, this.categoryTitle);
+  @override
+  State<CategoriesMealScreen> createState() => _CategoriesMealScreenState();
+}
+
+class _CategoriesMealScreenState extends State<CategoriesMealScreen> {
+  late String categoryTitle;
+  late List<Meal> displayedMeal;
+  var _loadInitData = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (!_loadInitData) {
+      final routeArguments =
+          ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      final categoryId = routeArguments['id'];
+      categoryTitle = routeArguments['title'] as String;
+      displayedMeal = widget.availableMeals.where((meal) {
+        return meal.categories.contains(categoryId);
+      }).toList();
+    }
+    _loadInitData = true;
+    super.didChangeDependencies();
+  }
+
+  void _deleteMeal(String mealId) {
+    setState(() {
+      displayedMeal.removeWhere((element) => element.id == mealId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final routeArguments =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    final categoryId = routeArguments['id'];
-    final categoryTitle = routeArguments['title'];
-    final categoryMeal = DUMMY_MEALS.where((meal) {
-      return meal.categories.contains(categoryId);
-    });
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle!),
+        title: Text(categoryTitle),
       ),
       body: ListView.builder(
         // padding: const EdgeInsets.all(10),
         itemBuilder: (ctx, index) {
           return MealItem(
-            id: categoryMeal.elementAt(index).id,
-            title: categoryMeal.elementAt(index).title,
-            imageUrl: categoryMeal.elementAt(index).imageUrl,
-            affordability: categoryMeal.elementAt(index).affordability,
-            complexity: categoryMeal.elementAt(index).complexity,
-            duration: categoryMeal.elementAt(index).duration,
+            id: displayedMeal.elementAt(index).id,
+            title: displayedMeal.elementAt(index).title,
+            imageUrl: displayedMeal.elementAt(index).imageUrl,
+            affordability: displayedMeal.elementAt(index).affordability,
+            complexity: displayedMeal.elementAt(index).complexity,
+            duration: displayedMeal.elementAt(index).duration,
+            deleteItem: _deleteMeal,
           );
         },
-        itemCount: categoryMeal.length,
+        itemCount: displayedMeal.length,
       ),
     );
   }
