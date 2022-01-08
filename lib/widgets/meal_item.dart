@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meal_app/models/meal.dart';
-import 'package:meal_app/screens/meal_detail_screen.dart';
+
+
+import '../models/meal.dart';
+import '../screens/meal_detail_screen.dart';
 
 class MealItem extends StatelessWidget {
   final String id;
@@ -9,7 +11,6 @@ class MealItem extends StatelessWidget {
   final Complexity complexity;
   final Affordability affordability;
   final int duration;
-  final Function deleteItem;
 
   // ignore: use_key_in_widget_constructors
   const MealItem({
@@ -19,7 +20,6 @@ class MealItem extends StatelessWidget {
     required this.complexity,
     required this.affordability,
     required this.duration,
-    required this.deleteItem,
   });
 
   // ignore: non_constant_identifier_names
@@ -100,7 +100,7 @@ class MealItem extends StatelessWidget {
     )
         .then((result) {
       if (result != null) {
-        deleteItem(result);
+        // deleteItem(result);
       }
     });
   }
