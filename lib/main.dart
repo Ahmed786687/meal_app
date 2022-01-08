@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "DeliMeal",
+      title: "Daily Meal",
       theme: ThemeData(
         primarySwatch: Colors.teal,
         colorScheme: ColorScheme.fromSwatch().copyWith(
